@@ -1,0 +1,93 @@
+class Node {
+
+	Node nextNode;
+	// Node currentNode;
+	String data;
+
+	Node(String data) {
+		this.data = data;
+	}
+}
+
+class linkedList {
+
+	public Node head;
+
+	public void insertIntoList(String data) {
+		if (head == null) {
+			this.head = new Node(data);
+			return;
+		}
+		Node temp = this.head;
+		while (temp.nextNode != null) {
+			temp = temp.nextNode;
+		}
+		temp.nextNode = new Node(data);
+	}
+
+	public Node insertAfterNode(Node node, String data) {
+		if (this.head == null) {
+			this.head = new Node(data);
+			return this.head;
+		}
+		Node tempNode = node;
+
+		if (tempNode.nextNode == null) {
+			tempNode.nextNode = new Node(data);
+			return tempNode.nextNode;
+		}
+		Node bkpNode = tempNode.nextNode;
+		tempNode.nextNode = new Node(data);
+		tempNode.nextNode.nextNode = bkpNode;
+		return tempNode.nextNode;
+
+	}
+}
+
+class Stack {
+	Node start;
+	Node end;
+	// int size;
+	linkedList ll=new linkedList();
+
+	Stack() {
+		if (ll.head == null) {
+			ll.head = new Node("");
+			this.start = ll.head;
+			this.end = this.start;
+			return;
+		}
+		Node temp = ll.head;
+		while (temp.nextNode != null) {
+			temp = temp.nextNode;
+
+		}
+		temp.nextNode = new Node("");
+		this.start = temp.nextNode;
+		this.end = this.start;
+
+	}
+
+	void push(String data) {
+		if(this.end.data.equalsIgnoreCase("")){
+			this.end.data=data;
+			return;
+		}
+		this.end = ll.insertAfterNode(this.end, data);
+
+	}
+
+	String pop(){
+		
+		String data= this.end.data;
+		Node temp=ll.head;
+		Node pre=null;
+		while(temp!=this.end){
+			pre=temp;
+			temp=temp.nextNode;	
+					}
+		this.end=pre;
+		return data;
+				
+	}
+}
